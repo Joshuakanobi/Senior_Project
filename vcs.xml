@@ -6,6 +6,10 @@
           <option name="url" value="https://github.uci.edu/EECS40-Spring17/FEAssignment4.git" />
           <option name="userName" value="" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="http://github.com" />
+          <option name="userName" value="flame23517@gmail.com" />
+        </UrlAndUserName>
       </list>
     </option>
     <option name="cloneParentDir" value="C:\Users\flame\AndroidStudioProjects" />
