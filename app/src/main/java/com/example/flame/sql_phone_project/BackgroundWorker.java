@@ -26,6 +26,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
     BackgroundWorker (Context ctx) {
         context = ctx;
     }
+    Boolean proceed = false;
 
     @Override
     protected String doInBackground(String... params) {
@@ -74,6 +75,37 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
 
         }
 
+        if(type.equals("request")){
+            String request_url = "http://10.0.2.2/request_spot.php";
+            try {
+                URL url = new URL(request_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
+
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+
+                String result="";
+                String line="";
+
+                while((line = bufferedReader.readLine())!= null){
+                    result += line;
+                }
+
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+
+                return result;
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         return null;
     }
 
@@ -88,10 +120,11 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
         alertDialog.setMessage(result);
         alertDialog.show();
-    }
+        }
 
     @Override
     protected void onProgressUpdate(Void... values) {
         super.onProgressUpdate(values);
     }
+
 }
